@@ -86,5 +86,101 @@ describe("wc", function() {
       const expected = '       7       8      15 numbers';
 
       assert.deepEqual(actual,expected);
-  })
+  });
+  it('should count lines and words when -wl is specified', () => {
+      const actual = wc(['-wl','numbers'],fs);
+      const expected = '       7       8 numbers';
+
+      assert.deepEqual(actual,expected);
+  });
+  it('should count lines and bytes when -cl is specified', () => {
+    const actual = wc(['-cl','numbers'],fs);
+    const expected = '       7      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words and bytes when -cw is specified', ()=> {
+    const actual = wc(['-cw','numbers'],fs);
+    const expected = '       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -lcw is specified', ()=> {
+    const actual = wc(['-lcw','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -clw is specified', ()=> {
+    const actual = wc(['-clw','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -cwl is specified', ()=> {
+    const actual = wc(['-cwl','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -wlc is specified', ()=> {
+    const actual = wc(['-wlc','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -wcl is specified', ()=> {
+    const actual = wc(['-wcl','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count lines and words when -w -l is specified', ()=> {
+    const actual = wc(['-w','-l','numbers'],fs);
+    const expected = '       7       8 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count lines and bytes when -c -l is specified',()=> {
+    const actual = wc(['-c','-l','numbers'],fs);
+    const expected = '       7      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words and bytes when -c -w is specified',() => {
+    const actual = wc(['-c','-w','numbers'],fs);
+    const expected = '       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -l -c -w is specified',() => {
+    const actual = wc(['-l','-c','-w','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -c -l -w is specified',() => {
+    const actual = wc(['-l','-c','-w','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -c -w -l is specified',() => {
+    const actual = wc(['-l','-c','-w','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -w -l -c is specified',() => {
+    const actual = wc(['-l','-c','-w','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should count words, lines and bytes when -w -c -l is specified',() => {
+    const actual = wc(['-l','-c','-w','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
 });

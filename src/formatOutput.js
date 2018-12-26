@@ -14,14 +14,20 @@ const justifier = function(string,length = 8){
   return repeatSpaces(spacesRequired)+string;
 }
 
-const formatOuput = function(fileDetails,option){
-  const options = { 
+const orderoptions = function(options){
+  let order = ['l','w','c'];
+  return order.filter((x) => options.includes(x));
+}
+
+const formatOuput = function(fileDetails,inputOptions){
+  let options = orderoptions(inputOptions);
+  const filecounts = { 
     l : 'lineCount',
     w : 'wordCount',
     c : 'characterCount' 
-  }
-  msg = option.map((x) => justifier(fileDetails[options[x]])).join(EMPTY);
-  return msg + SPACE + fileDetails.fileName; 
+  };
+  let counts = options.map((option) => justifier(fileDetails[filecounts[option]])).join(EMPTY);
+  return counts + SPACE + fileDetails.fileName; 
 }
 
 module.exports = {
