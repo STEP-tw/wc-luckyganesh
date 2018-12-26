@@ -1,7 +1,11 @@
-const NEWLINE = '\n';
-const EMPTY = '';
-const SPACE = ' ';
-const ENCODINGFORMAT = 'utf8'
+const { formatOuput } = require('./formatOutput.js')
+
+const {
+    NEWLINE,
+    EMPTY,
+    SPACE,
+    ENCODINGFORMAT
+  }  = require('./constants.js');
 
 const countNoOfLines = function(content){
     return content.split(NEWLINE).length-1;
@@ -10,6 +14,7 @@ const countNoOfLines = function(content){
 const isNotEmpty = function(elem){
     return elem !== EMPTY;
 }
+
 const countNoOfWords = function(content){
     let words = content.split(NEWLINE).join(SPACE).split(SPACE).filter(isNotEmpty);
     return words.length;
@@ -32,23 +37,21 @@ const getDetails = function(fileName,fs){
     }
 }
 
-const repeatSpaces = function(count){
-    return new Array(count).fill(SPACE).join(EMPTY);
-}
+const parseInputs = function(userArgs){
+    let fileName = userArgs[0];
+    let options = 'lwc';
+    let firstArg = userArgs[0];
+    if(firstArg.startsWith('-')){
+        fileName = userArgs[1];
+        options = firstArg.slice(1);
+    }
+    return { fileName , options };
+};
 
-const justifier = function(string,length = 8){
-    const spacesRequired = length - (EMPTY+string).length;
-    return repeatSpaces(spacesRequired)+string;
-}
-
-const formatOuput = function(fileDetails){
-    const { fileName , lineCount , wordCount , characterCount } = fileDetails;
-    return justifier(lineCount)+justifier(wordCount)+justifier(characterCount)+ " " +fileName;
-}
-
-const wc = function(fileName,fs){
+const wc = function(userArgs,fs){
+    let { fileName , options } = parseInputs(userArgs);
     let fileDetails = getDetails(fileName,fs); 
-    return formatOuput(fileDetails);
+    return formatOuput(fileDetails,options);
 }
 
 module.exports = {
