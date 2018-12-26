@@ -57,4 +57,34 @@ describe("wc", function() {
 
     assert.deepEqual(actual,expected);
   });
+  it('should return the no of words and no of characters for a single file', function() {
+    const actual = wc(['-wc','numbers'],fs);
+    const expected = '       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should return the no of lines and no of words for a single file', function() {
+    const actual = wc(['-lw','numbers'],fs);
+    const expected = '       7       8 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should return all options when given for a single file', function() {
+    const actual = wc(['-lwc','numbers'],fs);
+    const expected = '       7       8      15 numbers';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('should return no of lines and no of words when option given by space',() => {
+      const actual = wc(['-l','-w','numbers'],fs);
+      const expected = '       7       8 numbers';
+
+      assert.deepEqual(actual,expected);
+  });
+  it('should return all options when options given by space', () => {
+      const actual = wc(['-l','-wc','numbers'],fs);
+      const expected = '       7       8      15 numbers';
+
+      assert.deepEqual(actual,expected);
+  })
 });

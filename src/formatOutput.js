@@ -20,7 +20,7 @@ const formatOuput = function(fileDetails,option){
     w : 'wordCount',
     c : 'characterCount' 
   }
-  msg = option.split(EMPTY).map((x) => justifier(fileDetails[options[x]])).join(EMPTY);
+  msg = option.map((x) => justifier(fileDetails[options[x]])).join(EMPTY);
   return msg + SPACE + fileDetails.fileName; 
 }
 

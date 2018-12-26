@@ -5,8 +5,9 @@ const {
     EMPTY,
     SPACE,
     ENCODINGFORMAT
-  }  = require('./constants.js');
+}  = require('./constants.js');
 
+const { parseInputs } = require('./parser.js')
 const countNoOfLines = function(content){
     return content.split(NEWLINE).length-1;
 }
@@ -21,7 +22,7 @@ const countNoOfWords = function(content){
 }
 
 const countNoOfCharacters = function(content){
-    return content.split(EMPTY).length;
+    return content.length;
 }
 
 const getDetails = function(fileName,fs){
@@ -36,17 +37,6 @@ const getDetails = function(fileName,fs){
         characterCount
     }
 }
-
-const parseInputs = function(userArgs){
-    let fileName = userArgs[0];
-    let options = 'lwc';
-    let firstArg = userArgs[0];
-    if(firstArg.startsWith('-')){
-        fileName = userArgs[1];
-        options = firstArg.slice(1);
-    }
-    return { fileName , options };
-};
 
 const wc = function(userArgs,fs){
     let { fileName , options } = parseInputs(userArgs);
