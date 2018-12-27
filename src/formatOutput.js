@@ -1,4 +1,4 @@
-const { NEWLINE, EMPTY, SPACE } = require("./constants.js");
+const { NEWLINE, EMPTY, SPACE, filecounts, TOTAL } = require("./constants.js");
 
 const repeatSpaces = function(count) {
   return new Array(count).fill(SPACE).join(EMPTY);
@@ -7,12 +7,6 @@ const repeatSpaces = function(count) {
 const justifier = function(string, length = 8) {
   const spacesRequired = length - (EMPTY + string).length;
   return repeatSpaces(spacesRequired) + string;
-};
-
-const filecounts = {
-  l: "lineCount",
-  w: "wordCount",
-  c: "characterCount"
 };
 
 const format = function(options, fileDetails) {
@@ -37,7 +31,7 @@ const formatOuput = function(files, options) {
     return format(options, file);
   });
   if (files.length > 1) {
-    totalCounts.fileName = "total";
+    totalCounts.fileName = TOTAL;
     contentToShow.push(format(options, totalCounts));
   }
   return contentToShow.join(NEWLINE);

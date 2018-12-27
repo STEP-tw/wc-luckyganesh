@@ -1,5 +1,6 @@
+const { wcOptions } = require('./constants.js');
+
 const parseInputs = function(userArgs) {
-  const basicOptions = ["l", "w", "c"];
   let options = [];
   let index = 0;
   while (userArgs[index].startsWith("-")) {
@@ -7,7 +8,7 @@ const parseInputs = function(userArgs) {
     index++;
   }
   if (options.length == 0) {
-    options = basicOptions;
+    options = wcOptions;
   }
   let fileNames = userArgs.slice(index);
   return { fileNames, options };

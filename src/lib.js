@@ -1,6 +1,6 @@
 const { formatOuput } = require("./formatOutput.js");
 
-const { NEWLINE, EMPTY, SPACE, ENCODINGFORMAT } = require("./constants.js");
+const { NEWLINE, EMPTY, SPACE, ENCODINGFORMAT, wcOptions } = require("./constants.js");
 
 const { parseInputs } = require("./parser.js");
 
@@ -39,8 +39,7 @@ const getDetails = function(fs, fileName) {
 };
 
 const orderoptions = function(options) {
-  const order = ["l", "w", "c"];
-  return order.filter(x => options.includes(x));
+  return wcOptions.filter(x => options.includes(x));
 };
 
 const wc = function(userArgs, fs) {
