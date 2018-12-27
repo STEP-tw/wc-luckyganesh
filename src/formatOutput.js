@@ -27,6 +27,9 @@ const addCounts = function(file1, file2) {
 const formatOuput = function(files, options) {
   let totalCounts = { lineCount: 0, wordCount: 0, characterCount: 0 };
   let contentToShow = files.map(file => {
+    if(!file.isExists){
+      return "wc: "+file.fileName+": open: No such file or directory";
+    }
     totalCounts = addCounts(totalCounts, file);
     return format(options, file);
   });

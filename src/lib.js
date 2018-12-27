@@ -26,12 +26,17 @@ const countNoOfCharacters = function(content) {
 };
 
 const getDetails = function(fs, fileName) {
-  const content = fs.readFileSync(fileName, ENCODINGFORMAT);
+  const isExists = fs.existsSync(fileName);
+  let content = "";
+  if(isExists){
+   content = fs.readFileSync(fileName, ENCODINGFORMAT);
+  }
   const lineCount = countNoOfLines(content);
   const wordCount = countNoOfWords(content);
   const characterCount = countNoOfCharacters(content);
   return {
     fileName,
+    isExists,
     lineCount,
     wordCount,
     characterCount
@@ -42,8 +47,23 @@ const orderoptions = function(options) {
   return wcOptions.filter(x => options.includes(x));
 };
 
+const getErrOptions = function(options){
+  const errOptions = options.filter(option => !wcOptions.includes(option));
+  return errOptions;
+}
+
+const wcUsage = "usage: wc [-clmw] [file ...]";
+
+const showError = function(option){
+  return ("wc: illegal option -- "+option+"\n"+wcUsage);
+}
+
 const wc = function(userArgs, fs) {
   let { fileNames, options } = parseInputs(userArgs);
+  let errOptions = getErrOptions(options);
+  if(errOptions.length){
+    return showError(errOptions[0]);
+  }
   options = orderoptions(options);
   const files = fileNames.map(getDetails.bind(null, fs));
   return formatOuput(files, options);

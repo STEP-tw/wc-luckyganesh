@@ -142,6 +142,7 @@ describe("formatOutput", function() {
   describe("singleFile", () => {
     const file = {
       fileName: "file",
+      isExists:true,
       lineCount: 1,
       wordCount: 2,
       characterCount: 3
@@ -181,12 +182,14 @@ describe("formatOutput", function() {
   describe("multiple files", () => {
     const file1 = {
       fileName: "file1",
+      isExists:true,
       lineCount: 1,
       wordCount: 2,
       characterCount: 3
     };
     const file2 = {
       fileName:"file2",
+      isExists:true,
       lineCount : 4,
       wordCount: 5,
       characterCount : 6

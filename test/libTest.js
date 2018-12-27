@@ -7,6 +7,9 @@ const createFileSystem = function(files) {
       if (encoding === "utf8") {
         return files[filename];
       }
+    },
+    existsSync:function(fileName){
+      return Object.keys(files).includes(fileName);
     }
   };
 };
@@ -223,4 +226,15 @@ describe("wc", function() {
 
     assert.deepEqual(actual, expected);
   });
+  it('should return invalid option error', () => {
+    const actual = wc(['-p','numbers'],fs);
+    let expected = "wc: illegal option -- p\n";
+        expected+= "usage: wc [-clmw] [file ...]";
+    
+        assert.equal(actual,expected);
+  });
+  it('should return invalid file error msg for single file',() => {
+    const actual = wc(['-l','temp'],fs);
+    const expected = "wc: temp: open: No such file or directory";
+  })
 });
