@@ -7,7 +7,8 @@ const {
     ENCODINGFORMAT
 }  = require('./constants.js');
 
-const { parseInputs } = require('./parser.js')
+const { parseInputs } = require('./parser.js');
+
 const countNoOfLines = function(content){
     return content.split(NEWLINE).length-1;
 }
@@ -38,8 +39,14 @@ const getDetails = function(fs,fileName){
     }
 }
 
+const orderoptions = function(options){
+    let order = ['l','w','c'];
+    return order.filter((x) => options.includes(x));
+}
+  
 const wc = function(userArgs,fs){
     let { fileNames , options } = parseInputs(userArgs);
+    options = orderoptions(options);
     let fileDetails = fileNames.map(getDetails.bind(null,fs));
     return formatOuput(fileDetails,options);
 }

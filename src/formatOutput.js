@@ -13,11 +13,6 @@ const justifier = function(string,length = 8){
   return repeatSpaces(spacesRequired)+string;
 }
 
-const orderoptions = function(options){
-  let order = ['l','w','c'];
-  return order.filter((x) => options.includes(x));
-}
-
 const filecounts = { 
   l : 'lineCount',
   w : 'wordCount',
@@ -37,9 +32,8 @@ const addCounts = function(file1,file2){
   }
 }
 
-const formatOuput = function(files,inputOptions){
+const formatOuput = function(files,options){
   let totalCounts = {lineCount:0,wordCount:0,characterCount:0};
-  let options = orderoptions(inputOptions);
   let contentToShow = files.map((file) => {
     totalCounts = addCounts(totalCounts,file);
     return format(options,file);
