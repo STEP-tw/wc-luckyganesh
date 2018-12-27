@@ -5,7 +5,7 @@ const repeatSpaces = function(count) {
 };
 
 const justifier = function(string, length = 8) {
-  const spacesRequired = length - (EMPTY + string).length;
+  const spacesRequired = length - string.toString().length;
   return repeatSpaces(spacesRequired) + string;
 };
 
@@ -38,5 +38,9 @@ const formatOuput = function(files, options) {
 };
 
 module.exports = {
-  formatOuput
+  formatOuput,
+  format,
+  addCounts,
+  justifier,
+  repeatSpaces
 };
