@@ -9,8 +9,8 @@ const parseInputs = function(userArgs){
   if(options.length == 0 ){
     options = basicOptions;
   }
-  fileName = userArgs[index];
-  return { fileName , options };
+  fileNames = userArgs.slice(index);
+  return { fileNames , options };
 };
 
 module.exports = {

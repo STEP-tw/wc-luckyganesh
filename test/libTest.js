@@ -183,4 +183,44 @@ describe("wc", function() {
 
     assert.deepEqual(actual,expected);
   });
+  it('without arguments provides line, word and byte count and a total for multiple files',() => {
+    const actual = wc(['numbers','file'],fs);
+    let expected = '       7       8      15 numbers\n';
+        expected+= '       0       2       9 file\n';
+        expected+= '       7      10      24 total';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('with arguments provides line, word and byte count and a total for multiple files',() => {
+    const actual = wc(['-l','-w','-c','numbers','file'],fs);
+    let expected = '       7       8      15 numbers\n';
+        expected+= '       0       2       9 file\n';
+        expected+= '       7      10      24 total';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('with arguments provides line counts and a total for multiple files',() => {
+    const actual = wc(['-l','numbers','file'],fs);
+    let expected = '       7 numbers\n';
+        expected+= '       0 file\n';
+        expected+= '       7 total';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('with arguments provides word counts and a total for multiple files',() => {
+    const actual = wc(['-w','numbers','file'],fs);
+    let expected = '       8 numbers\n';
+        expected+= '       2 file\n';
+        expected+= '      10 total';
+
+    assert.deepEqual(actual,expected);
+  });
+  it('with arguments provides byte counts and a total for multiple files',() => {
+    const actual = wc(['-c','numbers','file'],fs);
+    let expected = '      15 numbers\n';
+        expected+= '       9 file\n';
+        expected+= '      24 total';
+
+    assert.deepEqual(actual,expected);
+  });
 });

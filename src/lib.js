@@ -25,7 +25,7 @@ const countNoOfCharacters = function(content){
     return content.length;
 }
 
-const getDetails = function(fileName,fs){
+const getDetails = function(fs,fileName){
     let content = fs.readFileSync(fileName,ENCODINGFORMAT);
     let lineCount = countNoOfLines(content);
     let wordCount = countNoOfWords(content);
@@ -39,8 +39,8 @@ const getDetails = function(fileName,fs){
 }
 
 const wc = function(userArgs,fs){
-    let { fileName , options } = parseInputs(userArgs);
-    let fileDetails = getDetails(fileName,fs); 
+    let { fileNames , options } = parseInputs(userArgs);
+    let fileDetails = fileNames.map(getDetails.bind(null,fs));
     return formatOuput(fileDetails,options);
 }
 
