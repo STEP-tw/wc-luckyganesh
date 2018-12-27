@@ -16,7 +16,7 @@ const filecounts = {
 };
 
 const format = function(options, fileDetails) {
-  let counts = options
+  const counts = options
     .map(option => justifier(fileDetails[filecounts[option]]))
     .join(EMPTY);
   return counts + SPACE + fileDetails.fileName;

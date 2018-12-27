@@ -13,7 +13,7 @@ const isNotEmpty = function(elem) {
 };
 
 const countNoOfWords = function(content) {
-  let words = content
+  const words = content
     .split(NEWLINE)
     .join(SPACE)
     .split(SPACE)
@@ -26,10 +26,10 @@ const countNoOfCharacters = function(content) {
 };
 
 const getDetails = function(fs, fileName) {
-  let content = fs.readFileSync(fileName, ENCODINGFORMAT);
-  let lineCount = countNoOfLines(content);
-  let wordCount = countNoOfWords(content);
-  let characterCount = countNoOfCharacters(content);
+  const content = fs.readFileSync(fileName, ENCODINGFORMAT);
+  const lineCount = countNoOfLines(content);
+  const wordCount = countNoOfWords(content);
+  const characterCount = countNoOfCharacters(content);
   return {
     fileName,
     lineCount,
@@ -39,15 +39,15 @@ const getDetails = function(fs, fileName) {
 };
 
 const orderoptions = function(options) {
-  let order = ["l", "w", "c"];
+  const order = ["l", "w", "c"];
   return order.filter(x => options.includes(x));
 };
 
 const wc = function(userArgs, fs) {
   let { fileNames, options } = parseInputs(userArgs);
   options = orderoptions(options);
-  let fileDetails = fileNames.map(getDetails.bind(null, fs));
-  return formatOuput(fileDetails, options);
+  const files = fileNames.map(getDetails.bind(null, fs));
+  return formatOuput(files, options);
 };
 
 module.exports = {
