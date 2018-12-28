@@ -11,7 +11,7 @@ const justifier = function(string, length = 8) {
 
 const format = function(options, fileDetails) {
   const counts = options
-    .map(option => justifier(fileDetails[filecounts[option]]))
+    .map(option => justifier(fileDetails[option]))
     .join(EMPTY);
   return counts + SPACE + fileDetails.fileName;
 };

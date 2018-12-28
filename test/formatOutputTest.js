@@ -107,31 +107,31 @@ describe("format", function() {
     characterCount: 3
   };
   it("should return the format of all counts and fileName", function() {
-    const actual = format(["l", "w", "c"], file);
+    const actual = format(["lineCount", "wordCount", "characterCount"], file);
     const expected = "       1       2       3 file";
 
     assert.deepEqual(actual, expected);
   });
-  it("should return the format of line counts and fileName when option is only l", function() {
-    const actual = format(["l"], file);
+  it("should return the format of line counts and fileName when option is only lineCount", function() {
+    const actual = format(["lineCount"], file);
     const expected = "       1 file";
 
     assert.deepEqual(actual, expected);
   });
-  it("should return the format of word counts and fileName when option is only w", function() {
-    const actual = format(["w"], file);
+  it("should return the format of word counts and fileName when option is only wordCount", function() {
+    const actual = format(["wordCount"], file);
     const expected = "       2 file";
 
     assert.deepEqual(actual, expected);
   });
-  it("should return the format of character counts and fileName when option is only c", function() {
-    const actual = format(["c"], file);
+  it("should return the format of character counts and fileName when option is only characterCount", function() {
+    const actual = format(["characterCount"], file);
     const expected = "       3 file";
 
     assert.deepEqual(actual, expected);
   });
-  it("should return the format of line & character counts and fileName when option is only c", function() {
-    const actual = format(["l", "c"], file);
+  it("should return the format of line & character counts and fileName when option is only characterCount", function() {
+    const actual = format(["lineCount", "characterCount"], file);
     const expected = "       1       3 file";
 
     assert.deepEqual(actual, expected);
@@ -149,31 +149,31 @@ describe("formatOutput", function() {
     };
     const files = [file];
     it("should return the format of all counts and fileName", function() {
-      const actual = formatOuput(files, ["l", "w", "c"]);
+      const actual = formatOuput(files, ["lineCount", "wordCount", "characterCount"]);
       const expected = "       1       2       3 file";
 
       assert.deepEqual(actual, expected);
     });
     it("should return the format of line counts and fileName when option is only l", function() {
-      const actual = formatOuput(files, ["l"]);
+      const actual = formatOuput(files, ["lineCount"]);
       const expected = "       1 file";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of word counts and fileName when option is only w", function() {
-      const actual = formatOuput(files, ["w"]);
+    it("should return the format of word counts and fileName when option is only wordCount", function() {
+      const actual = formatOuput(files, ["wordCount"]);
       const expected = "       2 file";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of character counts and fileName when option is only c", function() {
-      const actual = formatOuput(files, ["c"]);
+    it("should return the format of character counts and fileName when option is only characterCount", function() {
+      const actual = formatOuput(files, ["characterCount"]);
       const expected = "       3 file";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of line & character counts and fileName when option is only c", function() {
-      const actual = formatOuput(files, ["l", "c"]);
+    it("should return the format of line & character counts and fileName when option is only characterCount", function() {
+      const actual = formatOuput(files, ["lineCount", "characterCount"]);
       const expected = "       1       3 file";
 
       assert.deepEqual(actual, expected);
@@ -196,38 +196,38 @@ describe("formatOutput", function() {
     }
     const files = [file1,file2];
     it("should return the format of all counts and fileNames and total", function() {
-      const actual = formatOuput(files, ["l", "w", "c"]);
+      const actual = formatOuput(files, ["lineCount", "wordCount", "characterCount"]);
       let expected = "       1       2       3 file1\n";
           expected+= "       4       5       6 file2\n";
           expected+= "       5       7       9 total";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of line counts and fileName when option is only l", function() {
-      const actual = formatOuput(files, ["l"]);
+    it("should return the format of line counts and fileName when option is only lineCount", function() {
+      const actual = formatOuput(files, ["lineCount"]);
       let expected = "       1 file1\n";
           expected+= "       4 file2\n";
           expected+= "       5 total";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of word counts and fileName when option is only w", function() {
-      const actual = formatOuput(files, ["w"]);
+    it("should return the format of word counts and fileName when option is only wordCount", function() {
+      const actual = formatOuput(files, ["wordCount"]);
       let expected = "       2 file1\n";
           expected+= "       5 file2\n";
           expected+= "       7 total";
 
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of character counts and fileName when option is only c", function() {
-      const actual = formatOuput(files, ["c"]);
+    it("should return the format of character counts and fileName when option is only characterCount", function() {
+      const actual = formatOuput(files, ["characterCount"]);
       let expected = "       3 file1\n";
           expected+= "       6 file2\n";
           expected+= "       9 total";
       assert.deepEqual(actual, expected);
     });
-    it("should return the format of line & character counts and fileName when option is only c", function() {
-      const actual = formatOuput(files, ["l", "c"]);
+    it("should return the format of line & character counts and fileName when option is only characterCount", function() {
+      const actual = formatOuput(files, ["lineCount", "characterCount"]);
       let expected = "       1       3 file1\n";
           expected+= "       4       6 file2\n";
           expected+= "       5       9 total";

@@ -1,6 +1,6 @@
 const { formatOuput } = require("./formatOutput.js");
 
-const { NEWLINE, EMPTY, SPACE, ENCODINGFORMAT, wcOptions } = require("./constants.js");
+const { NEWLINE, EMPTY, SPACE, ENCODINGFORMAT  } = require("./constants.js");
 
 const { parseInputs } = require("./parser.js");
 
@@ -43,28 +43,11 @@ const getDetails = function(fs, fileName) {
   };
 };
 
-const orderoptions = function(options) {
-  return wcOptions.filter(x => options.includes(x));
-};
-
-const getErrOptions = function(options){
-  const errOptions = options.filter(option => !wcOptions.includes(option));
-  return errOptions;
-}
-
-const wcUsage = "usage: wc [-clmw] [file ...]";
-
-const showError = function(option){
-  return ("wc: illegal option -- "+option+"\n"+wcUsage);
-}
-
 const wc = function(userArgs, fs) {
-  let { fileNames, options } = parseInputs(userArgs);
-  let errOptions = getErrOptions(options);
-  if(errOptions.length){
-    return showError(errOptions[0]);
+  let { fileNames, options , err } = parseInputs(userArgs);
+  if( err ){
+    return err;
   }
-  options = orderoptions(options);
   const files = fileNames.map(getDetails.bind(null, fs));
   return formatOuput(files, options);
 };
