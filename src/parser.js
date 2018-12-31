@@ -1,8 +1,12 @@
 const { wcOptions ,filecounts } = require('./constants.js');
 
-const getErrOptions = function(options){
+const getErr = function(options){
   const errOptions = options.filter(option => !wcOptions.includes(option));
-  return errOptions;
+  let err = showError(errOptions[0]);
+  if(errOptions.length === 0){
+    err = "";
+  }
+  return err;
 }
 
 const wcUsage = "usage: wc [-clmw] [file ...]";
@@ -16,24 +20,24 @@ const orderoptions = function(options) {
   return wcOptions.filter(x => options.includes(x));
 };
 
+const isNotStartsWithHyphen = function(string){
+  return !string.startsWith('-');
+}
+
+const removefirstElem = function(x){
+  return x.slice(1);
+}
 const parseInputs = function(userArgs) {
-  let options = [];
-  let index = 0;
-  while (index < userArgs.length && userArgs[index].startsWith("-")) {
-    options = options.concat(userArgs[index].slice(1).split(""));
-    index++;
-  }
+  let index = userArgs.findIndex(isNotStartsWithHyphen);
+  let options = userArgs.slice(0,index).map(removefirstElem).join("").split("");
   if (index == 0) {
     options = wcOptions;
   }
+  const err = getErr(options);
   let fileNames = userArgs.slice(index);
-  let err = getErrOptions(options);
-  if(err.length){
-    return { err : showError(err[0]) };
-  }
   options = orderoptions(options);
   options = options.map((option) => filecounts[option]);
-  return { fileNames, options };
+  return { fileNames, options ,err };
 };
 
 module.exports = {

@@ -18,5 +18,8 @@
   "homepage": "https://github.com/STEP-tw/wc-luckyganesh#readme",
   "devDependencies": {
     "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "mocha_reporter": "git+https://github.com/craftybones/mocha-json-reporter.git"
   }
 }
