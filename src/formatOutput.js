@@ -1,4 +1,6 @@
-const { NEWLINE, EMPTY, SPACE, filecounts, TOTAL } = require("./constants.js");
+/* eslint-env mocha */
+
+const { NEWLINE, EMPTY, SPACE, TOTAL } = require('./constants.js');
 
 const repeatSpaces = function(count) {
   return new Array(count).fill(SPACE).join(EMPTY);
@@ -28,7 +30,7 @@ const formatOuput = function(files, options) {
   let totalCounts = { lineCount: 0, wordCount: 0, characterCount: 0 };
   let contentToShow = files.map(file => {
     if(!file.isExists){
-      return "wc: "+file.fileName+": open: No such file or directory";
+      return 'wc: '+file.fileName+': open: No such file or directory';
     }
     totalCounts = addCounts(totalCounts, file);
     return format(options, file);

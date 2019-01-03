@@ -4,16 +4,16 @@ const getErr = function(options){
   const errOptions = options.filter(option => !wcOptions.includes(option));
   let err = showError(errOptions[0]);
   if(errOptions.length === 0){
-    err = "";
+    err = '';
   }
   return err;
-}
+};
 
-const wcUsage = "usage: wc [-clmw] [file ...]";
+const wcUsage = 'usage: wc [-clmw] [file ...]';
 
 const showError = function(option){
-  return ("wc: illegal option -- "+option+"\n"+wcUsage);
-}
+  return ('wc: illegal option -- '+option+'\n'+wcUsage);
+};
 
 
 const orderoptions = function(options) {
@@ -22,14 +22,14 @@ const orderoptions = function(options) {
 
 const isNotStartsWithHyphen = function(string){
   return !string.startsWith('-');
-}
+};
 
 const removefirstElem = function(x){
   return x.slice(1);
-}
+};
 const parseInputs = function(userArgs) {
   let index = userArgs.findIndex(isNotStartsWithHyphen);
-  let options = userArgs.slice(0,index).map(removefirstElem).join("").split("");
+  let options = userArgs.slice(0,index).map(removefirstElem).join('').split('');
   if (index == 0) {
     options = wcOptions;
   }

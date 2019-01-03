@@ -4,11 +4,11 @@ const SPACE = ' ';
 const ENCODINGFORMAT = 'utf8';
 const wcOptions = ['l','w','c'];
 const filecounts = {
-  l: "lineCount",
-  w: "wordCount",
-  c: "characterCount"
+  l: 'lineCount',
+  w: 'wordCount',
+  c: 'characterCount'
 };
-const TOTAL = 'total'
+const TOTAL = 'total';
 
 module.exports = {
   NEWLINE,
@@ -18,4 +18,4 @@ module.exports = {
   wcOptions,
   filecounts,
   TOTAL
-}
+};
