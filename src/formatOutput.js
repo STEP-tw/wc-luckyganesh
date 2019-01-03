@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 const { NEWLINE, EMPTY, SPACE, TOTAL } = require('./constants.js');
 
 const repeatSpaces = function(count) {
@@ -15,7 +13,7 @@ const format = function(options, fileDetails) {
   const counts = options
     .map(option => justifier(fileDetails[option]))
     .join(EMPTY);
-  return counts + SPACE + fileDetails.fileName;
+  return counts + SPACE + fileDetails.name;
 };
 
 const addCounts = function(file1, file2) {
@@ -30,13 +28,13 @@ const formatOuput = function(files, options) {
   let totalCounts = { lineCount: 0, wordCount: 0, characterCount: 0 };
   let contentToShow = files.map(file => {
     if(!file.isExists){
-      return 'wc: '+file.fileName+': open: No such file or directory';
+      return 'wc: '+file.name+': open: No such file or directory';
     }
     totalCounts = addCounts(totalCounts, file);
     return format(options, file);
   });
   if (files.length > 1) {
-    totalCounts.fileName = TOTAL;
+    totalCounts.name = TOTAL;
     contentToShow.push(format(options, totalCounts));
   }
   return contentToShow.join(NEWLINE);

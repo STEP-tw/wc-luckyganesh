@@ -103,7 +103,7 @@ describe('addCounts', function() {
 
 describe('format', function() {
   const file = {
-    fileName: 'file',
+    name: 'file',
     lineCount: 1,
     wordCount: 2,
     characterCount: 3
@@ -143,7 +143,7 @@ describe('format', function() {
 describe('formatOutput', function() {
   describe('singleFile', () => {
     const file = {
-      fileName: 'file',
+      name: 'file',
       isExists:true,
       lineCount: 1,
       wordCount: 2,
@@ -183,14 +183,14 @@ describe('formatOutput', function() {
   });
   describe('multiple files', () => {
     const file1 = {
-      fileName: 'file1',
+      name: 'file1',
       isExists:true,
       lineCount: 1,
       wordCount: 2,
       characterCount: 3
     };
     const file2 = {
-      fileName:'file2',
+      name:'file2',
       isExists:true,
       lineCount : 4,
       wordCount: 5,
