@@ -32,7 +32,7 @@ const countNoOfCharacters = function (content) {
 const details = function (file) {
   let { name , data ,isExists } = file;
   if(!isExists){
-    data = "";
+    data = '';
   }
   let lineCount = countNoOfLines(data);
   let wordCount = countNoOfWords(data.toLocaleString());
@@ -46,41 +46,38 @@ const details = function (file) {
   };
 };
 
-const fileFormat = function(files,options,print){
+const fileFormat = function(files,options,console){
   files = files.map(details);
-  return print(formatOuput(files,options));
-}
-
-const getDetails = function(fs,fileNames,options,print){
-  const filesDetails = [];
-  const reader = function(files){
-    if(files.length === 0){
-      return fileFormat(filesDetails,options, print);
-    }
-    return fs.readFile(files[0],'utf8',(err,data) => {
-      let isExists = true;
-      if(err){
-        isExists = false;
-      }
-      filesDetails.push({name : files[0] , data , isExists});
-      return reader(files.slice(1));
-    });
-  }
-  return reader(fileNames);
+  console.log(formatOuput(files,options));
 };
 
-const wc = function (userArgs, fs, print) {
+const reader = function(fs ,console , files, filesDetails ,options ){
+  if(files.length === 0){
+    return fileFormat(filesDetails,options,console);
+  }
+  return fs.readFile(files[0],'utf8',(err,data) => {
+    let isExists = !err;
+    filesDetails.push({name : files[0] , data , isExists});
+    return reader(fs, console, files.slice(1),filesDetails, options);
+  });
+};
+
+const getDetails = function(fs,fileNames,options,console){
+  const filesDetails = [];
+  return reader(fs,console,  fileNames,  filesDetails ,options );
+};
+
+const wc = function (userArgs, fs,console) {
   let {
     fileNames,
     options,
     err
   } = parseInputs(userArgs);
   if (err) {
-    return err;
+    console.log(err);
+    return ;
   }
-  return getDetails(fs , fileNames,options,print);
-  // const files = fileNames.map(getDetails.bind(null, fs));
-  // return formatOuput(files, options);
+  return getDetails(fs , fileNames,options,console);
 };
 
 module.exports = {

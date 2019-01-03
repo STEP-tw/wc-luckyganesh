@@ -9,7 +9,7 @@ const createFileSystem = function (files) {
   return {
     readFile: function (fileName,buffer,func) {
       let err = !(Object.keys(files).includes(fileName))?true:null;
-      return func(err , files[fileName])
+      return func(err , files[fileName]);
     }
   };
 };
@@ -21,223 +21,227 @@ const files = {
   numbers: '1\n2\n3\n4\n5\n6\n7\n8'
 };
 const fs = createFileSystem(files);
-const identity = (x) => x;
 
 describe('wc', function () {
+  const console = {
+    stdout:'',
+    log:function(x){this.stdout = x;}
+  };
+  beforeEach(() => console.stdout='');
   it('should returm all options for single file of single line', function () {
-    const actual = wc(['file'], fs, identity);
+    wc(['file'], fs, console);
     const expected = '       0       2       9 file';
 
-    assert.equal(actual, expected);
+    assert.equal(console.stdout, expected);
   });
 
   it('should return all options as 0 for single empty file', function () {
-    const actual = wc(['emptyFile'], fs, identity);
+    wc(['emptyFile'], fs, console);
     const expected = '       0       0       0 emptyFile';
 
-    assert.equal(actual, expected);
+    assert.equal(console.stdout, expected);
   });
   it('should return all options for single file of multiple lines', function () {
-    const actual = wc(['lines'], fs,identity);
+    wc(['lines'], fs,console);
     const expected = '       1       2      11 lines';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return only no of lines for a single file', function () {
-    const actual = wc(['-l', 'numbers'], fs,identity);
+    wc(['-l', 'numbers'], fs,console);
     const expected = '       7 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return only no of words for a single file', function () {
-    const actual = wc(['-w', 'numbers'], fs , identity);
+    wc(['-w', 'numbers'], fs , console);
     const expected = '       8 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return only no of words for a single file', function () {
-    const actual = wc(['-c', 'numbers'], fs , identity);
+    wc(['-c', 'numbers'], fs , console);
     const expected = '      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return the no of words and no of characters for a single file', function () {
-    const actual = wc(['-wc', 'numbers'], fs , identity);
+    wc(['-wc', 'numbers'], fs , console);
     const expected = '       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return the no of lines and no of words for a single file', function () {
-    const actual = wc(['-lw', 'numbers'], fs , identity);
+    wc(['-lw', 'numbers'], fs , console);
     const expected = '       7       8 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return all options when given for a single file', function () {
-    const actual = wc(['-lwc', 'numbers'], fs , identity);
+    wc(['-lwc', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return no of lines and no of words when option given by space', () => {
-    const actual = wc(['-l', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-w', 'numbers'], fs , console);
     const expected = '       7       8 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return all options when options given by space', () => {
-    const actual = wc(['-l', '-wc', 'numbers'], fs , identity);
+    wc(['-l', '-wc', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count lines and words when -wl is specified', () => {
-    const actual = wc(['-wl', 'numbers'], fs , identity);
+    wc(['-wl', 'numbers'], fs , console);
     const expected = '       7       8 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count lines and bytes when -cl is specified', () => {
-    const actual = wc(['-cl', 'numbers'], fs , identity);
+    wc(['-cl', 'numbers'], fs , console);
     const expected = '       7      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words and bytes when -cw is specified', () => {
-    const actual = wc(['-cw', 'numbers'], fs , identity);
+    wc(['-cw', 'numbers'], fs , console);
     const expected = '       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -lcw is specified', () => {
-    const actual = wc(['-lcw', 'numbers'], fs , identity);
+    wc(['-lcw', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -clw is specified', () => {
-    const actual = wc(['-clw', 'numbers'], fs , identity);
+    wc(['-clw', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -cwl is specified', () => {
-    const actual = wc(['-cwl', 'numbers'], fs , identity);
+    wc(['-cwl', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -wlc is specified', () => {
-    const actual = wc(['-wlc', 'numbers'], fs , identity);
+    wc(['-wlc', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -wcl is specified', () => {
-    const actual = wc(['-wcl', 'numbers'], fs , identity);
+    wc(['-wcl', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count lines and words when -w -l is specified', () => {
-    const actual = wc(['-w', '-l', 'numbers'], fs , identity);
+    wc(['-w', '-l', 'numbers'], fs , console);
     const expected = '       7       8 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count lines and bytes when -c -l is specified', () => {
-    const actual = wc(['-c', '-l', 'numbers'], fs , identity);
+    wc(['-c', '-l', 'numbers'], fs , console);
     const expected = '       7      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words and bytes when -c -w is specified', () => {
-    const actual = wc(['-c', '-w', 'numbers'], fs , identity);
+    wc(['-c', '-w', 'numbers'], fs , console);
     const expected = '       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -l -c -w is specified', () => {
-    const actual = wc(['-l', '-c', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-c', '-w', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -c -l -w is specified', () => {
-    const actual = wc(['-l', '-c', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-c', '-w', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -c -w -l is specified', () => {
-    const actual = wc(['-l', '-c', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-c', '-w', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -w -l -c is specified', () => {
-    const actual = wc(['-l', '-c', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-c', '-w', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should count words, lines and bytes when -w -c -l is specified', () => {
-    const actual = wc(['-l', '-c', '-w', 'numbers'], fs , identity);
+    wc(['-l', '-c', '-w', 'numbers'], fs , console);
     const expected = '       7       8      15 numbers';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('without arguments provides line, word and byte count and a total for multiple files', () => {
-    const actual = wc(['numbers', 'file'], fs , identity);
+    wc(['numbers', 'file'], fs , console);
     let expected = '       7       8      15 numbers\n';
     expected += '       0       2       9 file\n';
     expected += '       7      10      24 total';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('with arguments provides line, word and byte count and a total for multiple files', () => {
-    const actual = wc(['-l', '-w', '-c', 'numbers', 'file'], fs , identity);
+    wc(['-l', '-w', '-c', 'numbers', 'file'], fs , console);
     let expected = '       7       8      15 numbers\n';
     expected += '       0       2       9 file\n';
     expected += '       7      10      24 total';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('with arguments provides line counts and a total for multiple files', () => {
-    const actual = wc(['-l', 'numbers', 'file'], fs , identity);
+    wc(['-l', 'numbers', 'file'], fs , console);
     let expected = '       7 numbers\n';
     expected += '       0 file\n';
     expected += '       7 total';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('with arguments provides word counts and a total for multiple files', () => {
-    const actual = wc(['-w', 'numbers', 'file'], fs , identity);
+    wc(['-w', 'numbers', 'file'], fs , console);
     let expected = '       8 numbers\n';
     expected += '       2 file\n';
     expected += '      10 total';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('with arguments provides byte counts and a total for multiple files', () => {
-    const actual = wc(['-c', 'numbers', 'file'], fs , identity);
+    wc(['-c', 'numbers', 'file'], fs , console);
     let expected = '      15 numbers\n';
     expected += '       9 file\n';
     expected += '      24 total';
 
-    assert.deepEqual(actual, expected);
+    assert.deepEqual(console.stdout, expected);
   });
   it('should return invalid option error', () => {
-    const actual = wc(['-p', 'numbers'], fs , identity);
+    wc(['-p', 'numbers'], fs , console);
     let expected = 'wc: illegal option -- p\n';
     expected += 'usage: wc [-clmw] [file ...]';
 
-    assert.equal(actual, expected);
+    assert.equal(console.stdout, expected);
   });
   it('should return invalid file error msg for single file', () => {
-    const actual = wc(['-l', 'temp'], fs , identity);
+    wc(['-l', 'temp'], fs , console);
     const expected = 'wc: temp: open: No such file or directory';
 
-    assert.equal(actual, expected);
+    assert.equal(console.stdout, expected);
   });
 });
