@@ -3,3 +3,6 @@ node_modules/
 TODO
 __report.json
 test.log
+.eslintignore
+.eslintrc.json
+coverage/

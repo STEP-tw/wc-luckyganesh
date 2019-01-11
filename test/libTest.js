@@ -7,9 +7,9 @@ const {
 
 const createFileSystem = function (files) {
   return {
-    readFile: function (fileName,buffer,func) {
+    readFile: function (fileName,buffer,callback) {
       let err = !(Object.keys(files).includes(fileName))?true:null;
-      return func(err , files[fileName]);
+      callback(err , files[fileName]);
     }
   };
 };

@@ -46,25 +46,26 @@ const details = function (file) {
   };
 };
 
-const fileFormat = function(files,options,console){
+const fileFormat = function(options,console,files){
   files = files.map(details);
   console.log(formatOuput(files,options));
 };
 
-const reader = function(fs ,console , files, filesDetails ,options ){
-  if(files.length === 0){
-    return fileFormat(filesDetails,options,console);
+const filesProcessor = function( fileFormatter ,fs, fileNames, files){
+  if(fileNames.length === 0){
+    return fileFormatter(files);
   }
-  return fs.readFile(files[0],'utf8',(err,data) => {
+  const fileToWorkOn = fileNames[0];
+  return fs.readFile(fileToWorkOn,'utf8',(err,data) => {
     let isExists = !err;
-    filesDetails.push({name : files[0] , data , isExists});
-    return reader(fs, console, files.slice(1),filesDetails, options);
+    files.push({name : fileToWorkOn , data , isExists});
+    return filesProcessor(fileFormatter,fs,fileNames.slice(1),files);
   });
 };
 
-const getDetails = function(fs,fileNames,options,console){
-  const filesDetails = [];
-  return reader(fs,console,  fileNames,  filesDetails ,options );
+const printDetails = function(fs,fileNames,fileFormatter){
+  const files = [];
+  return filesProcessor(fileFormatter,fs,fileNames,files);
 };
 
 const wc = function (userArgs, fs,console) {
@@ -77,7 +78,8 @@ const wc = function (userArgs, fs,console) {
     console.log(err);
     return ;
   }
-  return getDetails(fs , fileNames,options,console);
+  const fileFormatter = fileFormat.bind(null,options,console);
+  return printDetails(fs , fileNames,fileFormatter);
 };
 
 module.exports = {
